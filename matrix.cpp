@@ -11,13 +11,13 @@ void remove_matrix(int** matrix, size_t rows){
 int matrix(){
     std::cout << "Enter matrix row count:\n";
     size_t m = 0;
-    if(!std::cin >> m){
+    if(!(std::cin >> m)){
         std::cerr << "Couldn't write data";
         return 1;
     }
     std::cout << "Enter matrix column count:\n";
     size_t n = 0;
-    if(!std::cin >> n){
+    if(!(std::cin >> n)){
         std::cerr << "Couldn't write data" << std::endl;
         return 1;
     }
@@ -48,7 +48,7 @@ int matrix(){
     std::cout << "Enter matrix data:\n";
     for(size_t i = 0; i < rows; i++){
         for(size_t j = 0; j < columns; j++){
-            if(!std::cin >> matrix[i][j]){
+            if(!(std::cin >> matrix[i][j])){
                 std::cerr << "Couldn't write data" << std::endl;
                 remove_matrix(matrix, rows);
                 return 1;
