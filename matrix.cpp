@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstddef>
 
-void remove_matrix(int** matrix, size_t rows, size_t columns){
+void remove_matrix(int** matrix, size_t rows){
     for(size_t i = 0; i < rows; i++){
         delete[] matrix[i];
     }
@@ -11,15 +11,13 @@ void remove_matrix(int** matrix, size_t rows, size_t columns){
 int matrix(){
     std::cout << "Enter matrix row count:\n";
     size_t m = 0;
-    std::cin >> m;
-    if(std::cin.fail() || std::cin.eof() || std::cin.bad()){
+    if(!std::cin >> m){
         std::cout << "Couldn't write data";
         return 1;
     }
     std::cout << "Enter matrix column count:\n";
     size_t n = 0;
-    std::cin >> n;
-    if(std::cin.fail() || std::cin.eof() || std::cin.bad()){
+    if(!std::cin >> n){
         std::cout << "Couldn't write data\n";
         return 1;
     }
@@ -31,7 +29,6 @@ int matrix(){
     }
     catch (...){
         std::cout << "Memory allocation error\n";
-        delete[] matrix;
         return 2;
     }
     for(size_t i = 0; i < rows; i++){
@@ -40,17 +37,16 @@ int matrix(){
         }
         catch (...){
             std::cout << "Memory allocation error\n";
-            remove_matrix(matrix, rows, columns);
+            remove_matrix(matrix, i);
             return 2;
         }
     }
     std::cout << "Enter matrix data:\n";
     for(size_t i = 0; i < rows; i++){
         for(size_t j = 0; j < columns; j++){
-            std::cin >> matrix[i][j];
-            if(std::cin.fail() || std::cin.eof() || std::cin.bad()){
+            if(!std::cin >> matrix[i][j]){
                 std::cout << "Couldn't write data\n";
-                remove_matrix(matrix, rows, columns);
+                remove_matrix(matrix, rows);
                 return 1;
             }
         }
@@ -62,7 +58,7 @@ int matrix(){
         }
         std::cout << "\n";
     }
-    remove_matrix(matrix, rows, columns);
+    remove_matrix(matrix, rows);
     return 0;
 }
 
