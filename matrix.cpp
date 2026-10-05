@@ -18,7 +18,11 @@ int matrix(){
     std::cout << "Enter matrix column count:\n";
     size_t n = 0;
     if(!std::cin >> n){
-        std::cout << "Couldn't write data\n";
+        std::cout << "Couldn't write data" << std::endl;
+        return 1;
+    }
+    if(m <= 0 || n <= 0){
+        std::cerr << "invalid matrix size" << std::endl;
         return 1;
     }
     const size_t rows = m;
@@ -28,7 +32,7 @@ int matrix(){
         matrix = new int*[rows];
     }
     catch (...){
-        std::cout << "Memory allocation error\n";
+        std::cout << "Memory allocation error" << std::endl;
         return 2;
     }
     for(size_t i = 0; i < rows; i++){
@@ -36,7 +40,7 @@ int matrix(){
             matrix[i] = new int[columns];
         }
         catch (...){
-            std::cout << "Memory allocation error\n";
+            std::cout << "Memory allocation error" << std::endl;
             remove_matrix(matrix, i);
             return 2;
         }
@@ -45,7 +49,7 @@ int matrix(){
     for(size_t i = 0; i < rows; i++){
         for(size_t j = 0; j < columns; j++){
             if(!std::cin >> matrix[i][j]){
-                std::cout << "Couldn't write data\n";
+                std::cout << "Couldn't write data" << std::endl;
                 remove_matrix(matrix, rows);
                 return 1;
             }
