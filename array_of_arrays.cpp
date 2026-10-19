@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits>
 
 void remove_matrix(int** hs, size_t n){
     for(size_t i = 0; i < n; ++i){
@@ -28,6 +29,12 @@ int** initialize(size_t n, size_t m){
 }
 
 int** concat_rows(const int* const* lhs, size_t n1, size_t m1, const int* const* rhs, size_t n2, size_t m2){
+    if(lhs == nullptr || rhs == nullptr){
+        throw std::invalid_argument("Array is nullptr");
+    }
+    if(m1 > std::numeric_limits<size_t>::max() - m2){
+        throw std::overflow_error("Size is too big");
+    }
     int** fhs = nullptr;
     try {
         fhs = initialize(std::max(n1, n2), m1 + m2);
